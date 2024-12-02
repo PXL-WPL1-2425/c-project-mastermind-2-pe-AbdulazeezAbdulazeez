@@ -34,6 +34,7 @@ namespace Mastermind
         // Variabele die bijhoudt of het spel is beëindigd.
         private bool gameEnded = false;
 
+
         public MainWindow()
         {
             InitializeComponent();
@@ -79,6 +80,7 @@ namespace Mastermind
             ComboBox3.ItemsSource = kleuren;
             ComboBox4.ItemsSource = kleuren;
         }
+
 
         // Update de achtergrondkleur van een label op basis van de geselecteerde kleur.
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -313,6 +315,26 @@ namespace Mastermind
             {
                 base.OnClosing(e);
             }
+        }
+
+        private void Menu_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CloseGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Spelstarten_Click(object sender, RoutedEventArgs e)
+        {
+            string player1 = SpelerNaamTextBox.Text;
+            if (player1 == "")
+            { MessageBox.Show("kies een geldige naam"); }
+          else
+            MessageBox.Show($"{player1} is nu aan de beurt");
+           
         }
     }
 }
