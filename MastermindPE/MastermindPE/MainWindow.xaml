@@ -32,6 +32,9 @@
         <Label x:Name="timerLabel" Content="Tijd: 0s" HorizontalAlignment="Left" Margin="20,367,0,0" VerticalAlignment="Top" Height="34" Width="108"/>
         <Label x:Name="ScoreLabel" Content="Score: 0" HorizontalAlignment="Left" Margin="20,384,0,0" VerticalAlignment="Top" Height="34" Width="150"/>
 
+        <!-- Nieuwe label voor de actieve speler -->
+        <Label x:Name="ActivePlayerLabel" Content="Actieve Speler: " HorizontalAlignment="Left" Margin="20,320,0,0" VerticalAlignment="Top" Height="34" Width="200"/>
+
         <StackPanel x:Name="PreviousGuessesPanel" HorizontalAlignment="Left" Margin="567,0,0,0" VerticalAlignment="Center" Width="614" Height="284"/>
 
         <TextBox x:Name="DebugTextBox" HorizontalAlignment="Left" Margin="10,510,0,0" VerticalAlignment="Top" Width="780" Height="30" Visibility="Hidden" IsReadOnly="True"/>

@@ -18,6 +18,7 @@ namespace Mastermind
         private int countdownSeconds = 0;
         private const int maxTime = 10;
         private bool gameEnded = false;
+        private int currentPlayerIndex = 0; // Keeps track of the current player
 
         public MainWindow()
         {
@@ -27,7 +28,6 @@ namespace Mastermind
             timer.Tick += Timer_Tick;
             timer.Interval = new TimeSpan(0, 0, 1);
         }
-
 
         private void RandomKleur()
         {
@@ -52,7 +52,7 @@ namespace Mastermind
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
-            if (comboBox.SelectedItem != null)
+            if (comboBox != null && comboBox.SelectedItem != null)
             {
                 string selectedColor = comboBox.SelectedItem.ToString();
                 Brush brushColor = (Brush)new BrushConverter().ConvertFromString(selectedColor);
@@ -116,6 +116,14 @@ namespace Mastermind
             string guess2 = ComboBox2.SelectedItem?.ToString();
             string guess3 = ComboBox3.SelectedItem?.ToString();
             string guess4 = ComboBox4.SelectedItem?.ToString();
+
+            // Ensure that none of the guesses are null or empty before passing them for checking
+            if (string.IsNullOrEmpty(guess1) || string.IsNullOrEmpty(guess2) || string.IsNullOrEmpty(guess3) || string.IsNullOrEmpty(guess4))
+            {
+                MessageBox.Show("Maak een keuze voor alle vakken.", "Waarschuwing", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return; // Don't proceed if there are any missing guesses
+            }
+
             int score = CheckGuesses(guess1, guess2, guess3, guess4);
             ScoreLabel.Content = $"Score: {score}";
             StopCountdown();
@@ -128,6 +136,7 @@ namespace Mastermind
             {
                 attempts++;
                 StartCountdown();
+                SwitchPlayer();  // Switch to the next player after this turn
             }
             else
             {
@@ -142,24 +151,27 @@ namespace Mastermind
             int correctColors = 0;
             List<string> secretCode = new List<string>(Random);
 
+            // Check for correct positions (exact match)
             for (int i = 0; i < guesses.Count; i++)
             {
                 if (guesses[i] == secretCode[i])
                 {
                     correctPositions++;
-                    secretCode[i] = null;
+                    secretCode[i] = null;  // Mark this code as used
                 }
             }
 
+            // Check for correct colors (wrong position but matching color)
             for (int i = 0; i < guesses.Count; i++)
             {
                 if (guesses[i] != null && secretCode.Contains(guesses[i]))
                 {
                     correctColors++;
-                    secretCode[secretCode.IndexOf(guesses[i])] = null;
+                    secretCode[secretCode.IndexOf(guesses[i])] = null; // Mark this code as used
                 }
             }
 
+            // Safe calculation of score (assuming no divide-by-zero here)
             return (guesses.Count - correctPositions - correctColors) * 2 + correctColors;
         }
 
@@ -195,11 +207,11 @@ namespace Mastermind
 
         private void Spelstarten_Click(object sender, RoutedEventArgs e)
         {
-            spelers.Clear(); // Maak de lijst leeg bij een nieuw spel
+            spelers.Clear(); // Clear the list for new game
 
             while (true)
             {
-                // Maak een invoervenster met een prompt
+                // Create an input dialog for adding players
                 var inputDialog = new Window
                 {
                     Title = "Nieuwe Speler",
@@ -242,7 +254,7 @@ namespace Mastermind
                 if (result == false || string.IsNullOrWhiteSpace(spelerNaam))
                 {
                     MessageBox.Show("Kies een geldige naam.", "Waarschuwing", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    continue; // Vraag opnieuw om een naam
+                    continue; // Ask for a name again
                 }
 
                 spelers.Add(spelerNaam);
@@ -255,7 +267,7 @@ namespace Mastermind
 
                 if (vraag == MessageBoxResult.No)
                 {
-                    break; // Stop als de gebruiker aangeeft geen extra spelers toe te voegen
+                    break; // Stop if the user decides not to add another player
                 }
             }
 
@@ -267,14 +279,42 @@ namespace Mastermind
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
 
-                // Start de timer nadat de namen zijn ingevoerd
+                // Start the timer after the names are entered
                 StartCountdown();
+                UpdateActivePlayerLabel(); // Show the first player
             }
             else
             {
                 MessageBox.Show("Er zijn geen spelers toegevoegd. Het spel kan niet beginnen.", "Waarschuwing", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+
+        // Update the label for the active player
+        private void UpdateActivePlayerLabel()
+        {
+            if (spelers.Count > 0)
+            {
+                ActivePlayerLabel.Content = $"Actieve Speler: {spelers[currentPlayerIndex]}";
+            }
+            else
+            {
+                ActivePlayerLabel.Content = "Geen actieve speler.";
+            }
+        }
+
+        // Switch player after a turn
+        private void SwitchPlayer()
+        {
+            if (spelers.Count > 0)
+            {
+                // Increment the player index (and restart at the first player)
+                currentPlayerIndex = (currentPlayerIndex + 1) % spelers.Count;
+                UpdateActivePlayerLabel(); // Update the label
+            }
+            else
+            {
+                MessageBox.Show("Geen spelers zijn toegevoegd. Het spel kan niet doorgaan.", "Waarschuwing", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
     }
 }
-
