@@ -1,28 +1,22 @@
 ﻿<Window Background="BlanchedAlmond"
-    x:Class="Mastermind.MainWindow"
+        x:Class="Mastermind.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MasterMind" Height="1200" Width="800">
     <Grid>
+        <!-- Menu -->
+        <Menu VerticalAlignment="Top" HorizontalAlignment="Stretch">
+            <MenuItem Header="Bestand">
+                <MenuItem Header="Nieuw spel" />
+                <MenuItem Header="Highscores" />
+                <MenuItem Header="Afsluiten" />
+            </MenuItem>
+            <MenuItem Header="Instellingen">
+                <MenuItem Header="Aantal pogingen" />
+            </MenuItem>
+        </Menu>
 
-        <TabControl Margin="567,378,-140,615">
-            <TabItem Header="Score">
-                <Grid Background="#FFE5E5E5" Margin="94,21,-94,-22">
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0*"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Nieuwe spel">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-            <TabItem Header="Afsluiten">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-
-        </TabControl>
+        <!-- Spelinterface -->
         <ComboBox x:Name="ComboBox1" HorizontalAlignment="Left" Margin="43,250,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged"/>
         <ComboBox x:Name="ComboBox2" HorizontalAlignment="Left" Margin="228,250,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged"/>
         <ComboBox x:Name="ComboBox3" HorizontalAlignment="Left" Margin="446,250,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged"/>
@@ -35,19 +29,14 @@
         <Label x:Name="Label4" Background="Transparent" HorizontalAlignment="Left" Margin="633,10,0,0" VerticalAlignment="Top" Width="120" Height="226" BorderBrush="Black" BorderThickness="1" />
 
         <Button x:Name="CheckCodeButton" Content="Check Code" HorizontalAlignment="Left" Margin="288,328,0,0" VerticalAlignment="Top" Height="57" Width="152" Click="CheckCodeButton_Click"/>
-
         <Label x:Name="timerLabel" Content="Tijd: 0s" HorizontalAlignment="Left" Margin="20,367,0,0" VerticalAlignment="Top" Height="34" Width="108"/>
-
         <Label x:Name="ScoreLabel" Content="Score: 0" HorizontalAlignment="Left" Margin="20,384,0,0" VerticalAlignment="Top" Height="34" Width="150"/>
 
-        <StackPanel x:Name="PreviousGuessesPanel" HorizontalAlignment="Left" Margin="506,401,0,0" VerticalAlignment="Top" Width="700" Height="474"/>
+        <StackPanel x:Name="PreviousGuessesPanel" HorizontalAlignment="Left" Margin="567,0,0,0" VerticalAlignment="Center" Width="614" Height="284"/>
 
         <TextBox x:Name="DebugTextBox" HorizontalAlignment="Left" Margin="10,510,0,0" VerticalAlignment="Top" Width="780" Height="30" Visibility="Hidden" IsReadOnly="True"/>
         <Button x:Name="CloseGameButton" Content="spel sluiten" HorizontalAlignment="Left" Margin="36,450,0,0" VerticalAlignment="Top" Height="47" Width="134" Click="CloseGameButton_Click"/>
-        <Button x:Name="Spelstarten" Content="spel starten " HorizontalAlignment="Left" Margin="257,450,0,0" VerticalAlignment="Top" Height="44" Width="131" Click="Spelstarten_Click"/>
-        <TextBox x:Name="SpelerNaamTextBox" HorizontalAlignment="Left" Margin="103,406,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="25" BorderBrush="#FFFF0A0A" Background="BlanchedAlmond" FontSize="18" Text="Vul hier de speler naam" FontWeight="Bold"/>
-        <Label x:Name="Playername" Content="Speler naam:" HorizontalAlignment="Left" Margin="20,405,0,0" VerticalAlignment="Top" Width="83"/>
-
-
+        <Button x:Name="Spelstarten" Content="spel starten" HorizontalAlignment="Left" Margin="257,450,0,0" VerticalAlignment="Top" Height="44" Width="131" Click="Spelstarten_Click"/>
+        <TextBlock x:Name="HighScoreTextBox" HorizontalAlignment="Left" Margin="406,437,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="103" Width="200" Text="High score"/>
     </Grid>
 </Window>
