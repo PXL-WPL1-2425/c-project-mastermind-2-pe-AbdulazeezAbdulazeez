@@ -18,7 +18,7 @@ namespace Mastermind
         private int countdownSeconds = 0;
         private const int maxTime = 10;
         private bool gameEnded = false;
-        private int currentPlayerIndex = 0; // Houdt bij wie de actieve speler is
+        private int currentPlayerIndex = 0; 
 
         public MainWindow()
         {
@@ -128,7 +128,7 @@ namespace Mastermind
             {
                 attempts++;
                 StartCountdown();
-                SwitchPlayer();  // Verander naar de volgende speler na deze beurt
+                SwitchPlayer(); 
             }
             else
             {
@@ -143,23 +143,21 @@ namespace Mastermind
             int correctColors = 0;
             List<string> secretCode = new List<string>(Random);
 
-            // Check voor exacte posities (perfecte match)
             for (int i = 0; i < guesses.Count; i++)
             {
                 if (guesses[i] == secretCode[i])
                 {
                     correctPositions++;
-                    secretCode[i] = null;  // Markeer deze code als gebruikt
+                    secretCode[i] = null; 
                 }
             }
 
-            // Check voor correcte kleuren (juiste kleur maar verkeerde positie)
             for (int i = 0; i < guesses.Count; i++)
             {
                 if (guesses[i] != null && secretCode.Contains(guesses[i]))
                 {
                     correctColors++;
-                    secretCode[secretCode.IndexOf(guesses[i])] = null; // Markeer deze code als gebruikt
+                    secretCode[secretCode.IndexOf(guesses[i])] = null;
                 }
             }
 
@@ -198,7 +196,7 @@ namespace Mastermind
 
         private void Spelstarten_Click(object sender, RoutedEventArgs e)
         {
-            spelers.Clear(); // Wis de lijst voor een nieuw spel
+            spelers.Clear(); 
 
             while (true)
             {
@@ -270,7 +268,7 @@ namespace Mastermind
                     MessageBoxImage.Information);
 
                 StartCountdown();
-                UpdateActivePlayerLabel(); // Toon de eerste speler
+                UpdateActivePlayerLabel(); 
             }
             else
             {
@@ -278,7 +276,7 @@ namespace Mastermind
             }
         }
 
-        // Methode om de actieve speler te updaten
+        
         private void UpdateActivePlayerLabel()
         {
             if (spelers.Count > 0)
@@ -291,13 +289,12 @@ namespace Mastermind
             }
         }
 
-        // Methode om naar de volgende speler te schakelen
         private void SwitchPlayer()
         {
             if (spelers.Count > 0)
             {
-                currentPlayerIndex = (currentPlayerIndex + 1) % spelers.Count; // Zorg ervoor dat het weer naar de eerste speler gaat als het einde van de lijst is bereikt
-                UpdateActivePlayerLabel(); // Werk het label bij met de nieuwe actieve speler
+                currentPlayerIndex = (currentPlayerIndex + 1) % spelers.Count; 
+                UpdateActivePlayerLabel(); 
             }
             else
             {
