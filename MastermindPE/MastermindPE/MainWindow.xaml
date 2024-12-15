@@ -5,6 +5,7 @@
         Title="MasterMind" Height="1200" Width="800">
     <Grid>
         <!-- Menu -->
+        
         <Menu VerticalAlignment="Top" HorizontalAlignment="Stretch">
             <MenuItem Header="Bestand">
                 <MenuItem Header="Nieuw spel" />
@@ -41,5 +42,6 @@
         <Button x:Name="CloseGameButton" Content="spel sluiten" HorizontalAlignment="Left" Margin="36,450,0,0" VerticalAlignment="Top" Height="47" Width="134" Click="CloseGameButton_Click"/>
         <Button x:Name="Spelstarten" Content="spel starten" HorizontalAlignment="Left" Margin="257,450,0,0" VerticalAlignment="Top" Height="44" Width="131" Click="Spelstarten_Click"/>
         <TextBlock x:Name="HighScoreTextBox" HorizontalAlignment="Left" Margin="406,437,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="103" Width="200" Text="High score"/>
+        <Label x:Name="ActivePlayerLabel1" Content="Actieve Speler: " HorizontalAlignment="Center" Margin="0,798,0,0" VerticalAlignment="Top" Height="179" Width="586" FontSize="36"/>
     </Grid>
 </Window>
